@@ -1,0 +1,46 @@
+import pandas as pd
+
+community = pd.read_csv('communities.csv')
+
+Suburbs = community[community['Community Name'].str.endswith('(Suburb)')].copy()
+
+# keep the suburbs' name same in the two csv file
+Suburbs['Community Name'] = Suburbs['Community Name'].str.replace(' (Suburb)', '', regex = False).str.upper()
+
+Suburbs['Equivalent household income <$600/week, %'] = Suburbs['Equivalent household income <$600/week, %'].replace("<5", '5') 
+
+Suburbs['Equivalent household income <$600/week, %'] = Suburbs['Equivalent household income <$600/week, %'].apply(lambda x: float(x)).round(1)
+
+
+
+data = pd.read_csv('Houses-by-suburb.csv')
+
+price_columns = [str(year) for year in range(2013, 2024)]
+data[price_columns] = data[price_columns].apply(pd.to_numeric, errors='coerce')
+
+# fill the missing 2013 prices with the oldest available valid price
+data['2013'] = data['2013'].fillna(data[price_columns].bfill(axis = 1)['2013'])
+
+house_prices_2013 = data[['Locality', '2013']].dropna()
+
+sorted_prices_2013 = house_prices_2013.sort_values(by = '2013', ascending = True).reset_index(drop = True)
+
+
+# merge together
+merged_data = pd.merge(sorted_prices_2013, Suburbs, left_on = 'Locality', right_on = 'Community Name', how = 'inner')
+final_merged_data = merged_data[['Locality', '2013', 'Equivalent household income <$600/week, %']]
+
+total_rows = len(final_merged_data)
+part_1_end = total_rows // 4
+part_2_start = part_1_end
+part_2_end = (total_rows * 3) // 4
+part_3_start = part_2_end
+
+# part_1 is the first 1/4
+# part_2 is from 1/4 to 3/4
+# part_3 is the last 1/4
+part_1 = final_merged_data.iloc[:part_1_end]
+part_2 = final_merged_data.iloc[part_2_start:part_2_end]
+part_3 = final_merged_data.iloc[part_3_start:]
+
+part_1, part_2, part_3
