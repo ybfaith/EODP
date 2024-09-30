@@ -1,1 +1,12 @@
+import pandas as pd
+community = pd.read_csv('communities.csv')
+
+Suburbs = community[community['Community Name'].str.endswith('(Suburb)')].copy()
+
+# keep the suburbs' name same in the two csv file
+Suburbs['Community Name'] = Suburbs['Community Name'].str.replace(' (Suburb)', '', regex = False).str.upper()
+
+Suburbs['Equivalent household income <$600/week, %'] = Suburbs['Equivalent household income <$600/week, %'].replace("<5", '5') 
+
+Suburbs['Equivalent household income <$600/week, %'] = Suburbs['Equivalent household income <$600/week, %'].apply(lambda x: float(x)).round(1)
 
