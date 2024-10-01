@@ -28,6 +28,7 @@ plt.grid()
 # Boxplot
 plt.show()
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coerce')
 final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
@@ -55,3 +56,32 @@ plt.tight_layout()
 
 # Scatterplot
 plt.show()
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coerce')
+final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
+final_merged_data['Holds degree or higher, %'] = pd.to_numeric(final_merged_data['Holds degree or higher, %'], errors='coerce')
+
+def pearson_r(feature_a, feature_b):
+    """
+    A function which computes the Pearson Correlation between two features
+    """
+    # compute the mean
+    mean_a = feature_a.mean()
+    mean_b = feature_b.mean()
+    
+    # compute the numerator of pearson r
+    numerator = sum((feature_a - mean_a) * (feature_b - mean_b))
+    
+    # compute the denominator of pearson r
+    denominator = np.sqrt(sum((feature_a - mean_a) ** 2) * sum((feature_b - mean_b) ** 2))
+    
+    return numerator / denominator
+
+# Calculate Pearson Correlation Coefficient using the function
+corr_income = pearson_r(final_merged_data['2013'], final_merged_data['Equivalent household income <$600/week, %'])
+corr_degree = pearson_r(final_merged_data['2013'], final_merged_data['Holds degree or higher, %'])
+
+print(f"Pearson Correlation Coefficient between '2013' and 'Equivalent household income <$600/week, %': {corr_income:.4f}")
+print(f"Pearson Correlation Coefficient between '2013' and 'Holds degree or higher, %': {corr_degree:.4f}")
