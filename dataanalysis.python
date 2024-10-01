@@ -1,1 +1,28 @@
+final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coerce')
+final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
+final_merged_data['Holds degree or higher, %'] = pd.to_numeric(final_merged_data['Holds degree or higher, %'], errors='coerce')
 
+plt.figure(figsize=(15, 5))
+
+# Boxplot for '2013' House Prices
+plt.subplot(1, 3, 1)
+sns.boxplot(y='2013', data=final_merged_data)
+plt.title('2013 House Prices')
+plt.ylabel('House Price')
+plt.grid()
+
+# Boxplot for 'Equivalent household income <$600/week, %'
+plt.subplot(1, 3, 2)
+sns.boxplot(y='Equivalent household income <$600/week, %', data=final_merged_data)
+plt.title('Equivalent Household Income < $600/week (%)')
+plt.ylabel('Percentage (%)')
+plt.grid()
+
+# Boxplot for 'Holds degree or higher, %'
+plt.subplot(1, 3, 3)
+sns.boxplot(y='Holds degree or higher, %', data=final_merged_data)
+plt.title('Holds Degree or Higher (%)')
+plt.ylabel('Percentage (%)')
+plt.grid()
+
+plt.show()
