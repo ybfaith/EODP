@@ -25,4 +25,33 @@ plt.title('Holds Degree or Higher (%)')
 plt.ylabel('Percentage (%)')
 plt.grid()
 
+# Boxplot
+plt.show()
+
+
+final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coerce')
+final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
+final_merged_data['Holds degree or higher, %'] = pd.to_numeric(final_merged_data['Holds degree or higher, %'], errors='coerce')
+
+plt.figure(figsize=(12, 5))
+
+# Scatter plot for '2013' vs 'Equivalent household income <$600/week, %'
+plt.subplot(1, 2, 1)
+sns.scatterplot(x='Equivalent household income <$600/week, %', y='2013', data=final_merged_data)
+plt.title('Scatter Plot: 2013 House Prices vs Income < $600/week (%)')
+plt.xlabel('Equivalent Household Income < $600/week (%)')
+plt.ylabel('2013 House Prices')
+plt.grid()
+
+# Scatter plot for '2013' vs 'Holds degree or higher, %'
+plt.subplot(1, 2, 2)
+sns.scatterplot(x='Holds degree or higher, %', y='2013', data=final_merged_data)
+plt.title('Scatter Plot: 2013 House Prices vs Holds Degree or Higher (%)')
+plt.xlabel('Holds Degree or Higher (%)')
+plt.ylabel('2013 House Prices')
+plt.grid()
+
+plt.tight_layout()
+
+# Scatterplot
 plt.show()
