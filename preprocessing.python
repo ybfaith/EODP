@@ -7,14 +7,17 @@ Suburbs = community[community['Community Name'].str.endswith('(Suburb)')].copy()
 # keep the suburbs' name same in the two csv file
 Suburbs['Community Name'] = Suburbs['Community Name'].str.replace(' (Suburb)', '', regex = False).str.upper()
 
+# deal with the data which is not a number
 Suburbs['Equivalent household income <$600/week, %'] = Suburbs['Equivalent household income <$600/week, %'].replace("<5", '5') 
 
+# keep one decimal place
 Suburbs['Equivalent household income <$600/week, %'] = Suburbs['Equivalent household income <$600/week, %'].apply(lambda x: float(x)).round(1)
 Suburbs['Holds degree or higher, %'] = Suburbs['Holds degree or higher, %'].apply(lambda x: float(x)).round(1)
 
 
 house_price = pd.read_csv('Houses-by-suburb.csv')
 
+# delete rows which house price in 2013 is null
 house_price = house_price[house_price['2013'] != '-']
 
 house_price['2013'] = pd.to_numeric(house_price['2013'], errors='coerce')
