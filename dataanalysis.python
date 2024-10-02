@@ -71,6 +71,7 @@ final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coe
 final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
 final_merged_data['Holds degree or higher, %'] = pd.to_numeric(final_merged_data['Holds degree or higher, %'], errors='coerce')
 
+# a function to calculate the Pearson Correlation Coefficient from comp20008 workshop
 def pearson_r(feature_a, feature_b):
     """
     A function which computes the Pearson Correlation between two features
