@@ -34,10 +34,10 @@ final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coe
 final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
 final_merged_data['Holds degree or higher, %'] = pd.to_numeric(final_merged_data['Holds degree or higher, %'], errors='coerce')
 
-plt.figure(figsize=(12, 5))
+plt.figure(figsize=(18, 5))
 
 # Scatter plot for '2013' vs 'Equivalent household income <$600/week, %'
-plt.subplot(1, 2, 1)
+plt.subplot(1, 3, 1)
 sns.scatterplot(x='Equivalent household income <$600/week, %', y='2013', data=final_merged_data)
 plt.title('Scatter Plot: 2013 House Prices vs Income < $600/week (%)')
 plt.xlabel('Equivalent Household Income < $600/week (%)')
@@ -45,11 +45,19 @@ plt.ylabel('2013 House Prices')
 plt.grid()
 
 # Scatter plot for '2013' vs 'Holds degree or higher, %'
-plt.subplot(1, 2, 2)
+plt.subplot(1, 3, 2)
 sns.scatterplot(x='Holds degree or higher, %', y='2013', data=final_merged_data)
 plt.title('Scatter Plot: 2013 House Prices vs Holds Degree or Higher (%)')
 plt.xlabel('Holds Degree or Higher (%)')
 plt.ylabel('2013 House Prices')
+plt.grid()
+
+# Scatter plot for 'Equivalent household income <$600/week, %' vs 'Holds degree or higher, %'
+plt.subplot(1, 3, 3)
+sns.scatterplot(x='Holds degree or higher, %', y='Equivalent household income <$600/week, %', data=final_merged_data)
+plt.title('Scatter Plot: Income < $600/week (%) vs Holds Degree or Higher (%)')
+plt.xlabel('Holds Degree or Higher (%)')
+plt.ylabel('Income < $600/week (%)')
 plt.grid()
 
 plt.tight_layout()
@@ -79,9 +87,11 @@ def pearson_r(feature_a, feature_b):
     
     return numerator / denominator
 
-# Calculate Pearson Correlation Coefficient using the function
-corr_income = pearson_r(final_merged_data['2013'], final_merged_data['Equivalent household income <$600/week, %'])
-corr_degree = pearson_r(final_merged_data['2013'], final_merged_data['Holds degree or higher, %'])
 
-print(f"Pearson Correlation Coefficient between '2013' and 'Equivalent household income <$600/week, %': {corr_income:.4f}")
-print(f"Pearson Correlation Coefficient between '2013' and 'Holds degree or higher, %': {corr_degree:.4f}")
+corr_price_income = pearson_r(final_merged_data['2013'], final_merged_data['Equivalent household income <$600/week, %'])
+corr_price_degree = pearson_r(final_merged_data['2013'], final_merged_data['Holds degree or higher, %'])
+corr_income_degree = pearson_r(final_merged_data['Equivalent household income <$600/week, %'], final_merged_data['Holds degree or higher, %'])
+
+print(f"Pearson Correlation Coefficient between house price and 'Equivalent household income <$600/week, %': {corr_price_income:.4f}")
+print(f"Pearson Correlation Coefficient between house price and 'Holds degree or higher, %': {corr_price_degree:.4f}")
+print(f"Pearson Correlation Coefficient between 'Equivalent household income <$600/week, %' and 'Holds degree or higher, %': {corr_income_degree:.4f}")
