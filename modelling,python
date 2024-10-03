@@ -1,1 +1,45 @@
+#contribute supervised model linear regression
+X1 = final_merged_data[['Equivalent household income <$600/week, %', 'Holds degree or higher, %']]
+y1 = final_merged_data['2013']
 
+# Split the data into training and test sets (80% train, 20% test)
+X1_train, X1_test, y1_train, y1_test = train_test_split(X1, y1, test_size=0.2)
+
+# Initialize the linear regression model
+lm = LinearRegression()
+lm.fit(X1_train, y1_train)
+y_pred_lr = lm.predict(X1_test)
+
+# Visualize the predictions vs actual data
+plt.figure(figsize=(10, 6))
+plt.scatter(y1_test, y_pred_lr)
+plt.title('Actual vs Predicted House Prices (2013)')
+plt.xlabel('Actual House Prices')
+plt.ylabel('Predicted House Prices')
+plt.show()
+
+# Features and target variable
+X2 = final_merged_data[['Equivalent household income <$600/week, %', 'Holds degree or higher, %']]
+y2 = final_merged_data['Price Category']
+
+# Split the data into training and test sets (80% train, 20% test)
+X2_train, X2_test, y2_train, y2_test = train_test_split(X2, y2, test_size=0.2)
+
+# Create and fit knn with k=3
+knn = KNeighborsClassifier(n_neighbors=3)
+knn.fit(X2_train, y2_train)
+y_pred_cm = knn.predict(X2_test)
+
+# cm = confusion matrix (variable name)
+cm = confusion_matrix(y2_test, # Actual y values of the test data
+                      y_pred_cm, # Our model predictions for y values of the test data
+                      labels=['Low', 'Medium', 'High'] # class labels
+                     )
+
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, # pass through the created confusion matrix
+                              display_labels=['Low', 'Medium', 'High'] # class labels from the knn model
+                             )
+
+disp.plot()
+plt.title("Confusion Matrix")
+plt.show()
