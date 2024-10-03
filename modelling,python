@@ -10,6 +10,17 @@ lm = LinearRegression()
 lm.fit(X1_train, y1_train)
 y_pred_lr = lm.predict(X1_test)
 
+# Evaluate the model
+mse = mean_squared_error(y1_test, y_pred_lr)
+r2 = r2_score(y1_test, y_pred_lr)
+
+print(f"Mean Squared Error (MSE): {mse:.2f}")
+print(f"R-squared (R2): {r2:.2f}")
+
+# Display the coefficients
+print(f"Intercept: {lm.intercept_}")
+print(f"Coefficients: {lm.coef_}")
+
 # Visualize the predictions vs actual data
 plt.figure(figsize=(10, 6))
 plt.scatter(y1_test, y_pred_lr)
@@ -35,11 +46,30 @@ cm = confusion_matrix(y2_test, # Actual y values of the test data
                       y_pred_cm, # Our model predictions for y values of the test data
                       labels=['Low', 'Medium', 'High'] # class labels
                      )
-
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, # pass through the created confusion matrix
                               display_labels=['Low', 'Medium', 'High'] # class labels from the knn model
                              )
-
 disp.plot()
 plt.title("Confusion Matrix")
+plt.show()
+
+# Select the feature
+X = final_merged_data[['2013']]
+
+# K-Means Clustering
+kmeans = KMeans(n_clusters=3)
+final_merged_data['KMeans_Cluster'] = kmeans.fit_predict(X)
+
+# K-Means Clustering: Equivalent household income <$600/week, % vs 2013 House Prices
+sns.scatterplot(x='Equivalent household income <$600/week, %', y='2013', hue='KMeans_Cluster', data=final_merged_data, palette='Set1')
+plt.title('K-Means Clustering: Income <$600/week (%) vs House Prices (2013)')
+plt.xlabel('Equivalent household income <$600/week (%)')
+plt.ylabel('House Prices (2013)')
+plt.show()
+
+# K-Means Clustering: Holds degree or higher, % vs 2013 House Prices
+sns.scatterplot(x='Holds degree or higher, %', y='2013', hue='KMeans_Cluster', data=final_merged_data, palette='Set1')
+plt.title('K-Means Clustering: Holds Degree or Higher (%) vs House Prices (2013)')
+plt.xlabel('Holds degree or higher (%)')
+plt.ylabel('House Prices (2013)')
 plt.show()
