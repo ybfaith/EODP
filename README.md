@@ -11,3 +11,9 @@ Use "final_merged_data" from preprocessing, and switch the data to numeric first
 Draw boxplot for '2013' House Prices, 'Equivalent household income <$600/week, %', and 'Holds degree or higher, %'.
 Draw scatter plot for '2013' vs 'Equivalent household income <$600/week, %', '2013' vs 'Holds degree or higher, %', 'Equivalent household income <$600/week, %' vs 'Holds degree or higher, %'.
 Then use the custom function to calculate the Pearson Correlation Coefficient between house price and 'Equivalent household income <$600/week, %', between house price and 'Holds degree or higher, %', between 'Equivalent household income <$600/week, %' and 'Holds degree or higher, %'.
+
+Models:
+This code demonstrates the use of supervised and unsupervised learning models for analyzing housing data. Specifically, it covers:
+Linear Regression to predict house prices based on:Equivalent household income <$600/week, % and Holds degree or higher, %.
+K-Nearest Neighbors (KNN) for classifying house price categories (Price Category) based on the same features.
+K-Means Clustering for unsupervised clustering of house prices using:Equivalent household income <$600/week, %, Holds degree or higher, %, House Prices.
