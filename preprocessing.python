@@ -52,4 +52,4 @@ final_merged_data.loc[:low_end, 'Price Category'] = 'Low'
 final_merged_data.loc[low_end:high_start, 'Price Category'] = 'Medium'
 final_merged_data.loc[high_start:, 'Price Category'] = 'High'
 
-final_merged_data
+print(final_merged_data)
