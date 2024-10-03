@@ -28,8 +28,6 @@ plt.grid()
 # Boxplot
 plt.show()
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coerce')
 final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
 final_merged_data['Holds degree or higher, %'] = pd.to_numeric(final_merged_data['Holds degree or higher, %'], errors='coerce')
@@ -64,8 +62,6 @@ plt.tight_layout()
 
 # Scatterplot
 plt.show()
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 final_merged_data['2013'] = pd.to_numeric(final_merged_data['2013'], errors='coerce')
 final_merged_data['Equivalent household income <$600/week, %'] = pd.to_numeric(final_merged_data['Equivalent household income <$600/week, %'], errors='coerce')
